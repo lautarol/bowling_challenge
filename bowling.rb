@@ -1,4 +1,15 @@
 class Bowling
+    def initialize(file)
+        players = FileReader.new(file).players
+        @results =[]
+        start_game(players)
+    end
+
+    def start_game(players)
+        players.each do |player|
+            
+        end
+    end
 end
 
 class Player
