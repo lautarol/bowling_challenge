@@ -19,6 +19,9 @@ class Frame
 
 end
 
+class LastFrame<Frame
+end
+
 class Score
 end
 
