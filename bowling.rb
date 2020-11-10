@@ -8,6 +8,7 @@ class Bowling
 
     def start_game(players)
         players.each do |player|
+            raise "Max number of players is 6 " if players.size > 6
             @results << Player.new(player[:name], player[:shots])
         end
     end
@@ -63,7 +64,7 @@ class Player
     end
 
     def validate_game_finished
-        raise 'Score cannot be taken until the end of the game (Check if you enter the correct number of throws)' unless game_over?
+        raise 'Score cannot be taken until the end of the game (Check if you enter the correct number of throws for each player)' unless game_over?
     end
 
     def game_over?
