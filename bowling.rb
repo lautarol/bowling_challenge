@@ -7,22 +7,37 @@ class Bowling
 
     def start_game(players)
         players.each do |player|
-            
+            @results << Player.new(player[:name], player[:shots])
         end
     end
 end
 
 class Player
+    
+    def initialize(name, shots)
+        @name = name
+        @shots = shots
+        @score_card = Score.new
+        @current_frame = Frame.new(0)
+        player_game
+    end
 end
 
 class Frame
-
+    def initialize(index)
+        @index = index
+        @result = []
+        @bonus = 0
+    end
 end
 
 class LastFrame<Frame
 end
 
 class Score
+    def initialize
+        @frames = []
+    end
 end
 
 class FileReader
@@ -49,5 +64,6 @@ class FileReader
 end
 
 class ResultWritter
-
+    def initialize(result)
+    end
 end
