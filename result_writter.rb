@@ -3,15 +3,14 @@ class ResultWritter
     write_frames_line
     write_scores(results)
   end
+
   def write_frames_line
-    for i in (1..10)
+    line = ''
+    (1..10).each do |i|
       case i
-      when 1
-        line = "frame\t \t 1\t \t "
-      when 10
-        line += '10'
-      else
-        line += "#{i}\t \t "
+      when 1 then line = "frame\t \t 1\t \t "
+      when 10 then line += '10'
+      else line += "#{i}\t \t "
       end
     end
     puts line
@@ -19,69 +18,67 @@ class ResultWritter
 
   def write_scores(results)
     results.each do |result|
-      final_score= result.score
       accumulator = 0
       index = 0
       puts result.name
-      line= "Pinfalls\t "
-      result_line= "Score\t \t "
+      line = "Pinfalls\t "
+      result_line = "Score\t \t "
+
       result.score_card.frames.each do |frame|
         accumulator += frame.points
-        unless frame.is_a?(LastFrame)
-          values= print_regular_frames(result, frame, index)
-          line += values[0]
-          index = values[1]
-          if accumulator < 100
-            result_line += "#{accumulator} \t \t "
-          else
-            result_line += "#{accumulator}\t\t "
-          end          
+        if !frame.is_a?(LastFrame)
+          line_value, index = print_regular_frames(result, frame, index)
+          line += line_value
+          result_line += getaccumulator(accumulator)
         else
           line += print_last_frame(result, frame, index)
-          result_line += "#{final_score}"
+          result_line += result.score.to_s
         end
       end
+
       puts line
       puts result_line
     end
   end
 
   def print_regular_frames(result, frame, i)
-    line = ""
-    if frame.strike?
-      line +=  "\t X\t "
-      i += 1
-    elsif frame.spare?
-      line +=  "#{result.shots[i]}\t /\t"
+    line = ''
+    case
+    when !frame.strike? && !frame.spare?
+      frame.result.each { line += "#{result.shots[i]}\t "; i += 1 }
+    when frame.spare?
+      line = "#{result.shots[i]}\t /\t"
       i += 2
     else
-      frame.result.each do |shot_score|
-        line += "#{result.shots[i]}\t "
-        i += 1
-      end
+      line = "\t X\t "
+      i += 1
     end
-    return line, i
+    [line, i]
   end
-  
+
+  def getaccumulator(accumulator)
+    accumulator < 100 ? "#{accumulator} \t \t " : "#{accumulator}\t\t "
+  end
+
   def print_last_frame(result, frame, i)
-    line = ""
-    if frame.strike?
-      if frame.result.reduce(:+) == 30
-        line += "X\t X\t X"
-      elsif frame.result.reduce(:+) == 20
-        line += "X\t #{frame.result[1]}\t /"
-      else
-        line += "X\t #{frame.result[1]}\t #{frame.result[2]}"
-      end
-    elsif frame.spare?
-      if frame.result.reduce(:+) == 20
-        line +=  "#{frame.result[0]}\t /\t X"
-      else
-        line +=  "#{frame.result[0]}\t /\t #{frame.result[2]}"
-      end
+    case
+    when frame.strike?
+      print_last_frame_strike(frame)
+    when frame.spare?
+      print_last_frame_spare(frame)
     else
-      line += "#{result.shots[i]}\t #{result.shots[i+1]}"
+      "#{result.shots[i]}\t #{result.shots[i+1]}"
     end
-    return line
-  end 
+  end
+
+  def print_last_frame_strike(frame)
+    strike = { 20 => "X\t #{frame.result[1]}\t /", 30 => "X\t X\t X" }
+    strike.default = "X\t #{frame.result[1]}\t #{frame.result[2]}"
+    strike[frame.result.reduce(:+)]
+  end
+
+  def print_last_frame_spare(frame)
+    frame.result.reduce(:+) == 20 ? "#{frame.result[0]}\t /\t X" : "#{frame.result[0]}\t /\t #{frame.result[2]}"
+  end
+
 end

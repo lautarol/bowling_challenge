@@ -10,15 +10,9 @@ class FileReader
     players_shots = []
     shots = File.read(file).split("\n")
     names = []
-    shots.each do |shot|
-      names << shot.split(' ').first
-      players_shots << shot.split(' ')
-    end
+    shots.each { |shot| names << shot.split(' ').first; players_shots << shot.split(' ') }
     names.uniq!
-    names.each do |player|
-      ps = players_shots.select{ |p| p.first == player}.flatten!.reject{|p| p == player }
-      players << { name: player, shots: ps }
-    end
+    names.each { |player| ps = players_shots.select { |p| p.first == player }.flatten!.reject { |p| p == player }; players << { name: player, shots: ps } }
     players
   end
 end

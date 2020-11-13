@@ -8,7 +8,7 @@ require_relative 'result_writter.rb'
 class Bowling
   def initialize(file)
     players = FileReader.new(file).players
-    @results =[]
+    @results = []
     start_game(players)
     ResultWritter.new(@results)
   end
@@ -22,4 +22,5 @@ class Bowling
   end
 end
 
+#Bowling.new('input.txt')
 Bowling.new(ARGV[0])

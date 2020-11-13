@@ -10,11 +10,7 @@ class Player
 
   def player_game
     @shots.each do |shot|
-    if shot == 'F'
-      roll(0)
-    else
-      roll(shot)
-    end
+      shot == 'F' ? roll(0) : roll(shot)
     end
   end
 
