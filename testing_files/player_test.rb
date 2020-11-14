@@ -1,13 +1,12 @@
 require 'minitest/autorun'
-require_relative 'player.rb'
-require_relative 'frame.rb'
-require_relative 'last_frame.rb'
-require_relative 'score.rb'
+require_relative '../player.rb'
+require_relative '../frame.rb'
+require_relative '../last_frame.rb'
+require_relative '../score.rb'
 
-class BowlingTest < Minitest::Test
+class PlayerTest < Minitest::Test
 
   def player(name, rolls)
-    #rolls.each { |pins| @player.roll(pins) }
     @player = Player.new(name, rolls)
   end
 
