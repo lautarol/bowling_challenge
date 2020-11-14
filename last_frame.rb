@@ -4,7 +4,7 @@ class LastFrame < Frame
   end
 
   def pin_count_error?
-    rolls == 2 && pins > 10 || (spare? && fill_ball > 10)|| (strike? && fill_ball > 10)
+    rolls == 2 && pins > 10 || (spare? && fill_ball > 10) || (strike? && fill_ball > 10)
   end
 
   private
