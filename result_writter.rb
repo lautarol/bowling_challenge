@@ -67,7 +67,7 @@ class ResultWritter
     when frame.spare?
       print_last_frame_spare(frame)
     else
-      "#{result.shots[i]}\t #{result.shots[i+1]}"
+      "#{result.shots[i]}\t #{result.shots[i + 1]}"
     end
   end
 
@@ -80,5 +80,4 @@ class ResultWritter
   def print_last_frame_spare(frame)
     frame.result.reduce(:+) == 20 ? "#{frame.result[0]}\t /\t X" : "#{frame.result[0]}\t /\t #{frame.result[2]}"
   end
-
 end

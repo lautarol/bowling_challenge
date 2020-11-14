@@ -10,11 +10,12 @@ class Player
 
   def player_game
     @shots.each do |shot|
-      shot == 'F' ? roll(0) : roll(shot)
+      roll(shot)
     end
   end
 
   def roll(number_of_pins)
+    number_of_pins = 0 if number_of_pins == 'F'
     validate_game_not_finished
     @current_frame.add(number_of_pins)
 

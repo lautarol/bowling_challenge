@@ -57,7 +57,7 @@ class Frame
   private
 
   def validate_pin_amount(pins)
-    raise 'Pins must be a value from 0 to 10 or an F if it is a faul' unless pins.to_s.match(/\d|10/)
+    raise 'Pins must be a value from 0 to 10 or an F if it is a faul' unless pins.to_s.match(/\A\d\z|10/)
   end
 
   def validate_frame_total
