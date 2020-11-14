@@ -9,6 +9,7 @@ class Frame
   end
 
   def add(pins)
+    validate_not_complete
     validate_pin_amount(pins)
     result << pins.to_i
     validate_frame_total
@@ -42,10 +43,6 @@ class Frame
     !strike? && first_roll + second_roll == 10
   end
 
-  def open?
-    !strike? && !spare?
-  end
-
   def complete?
     strike? || rolls == 2
   end
@@ -55,6 +52,9 @@ class Frame
   end
 
   private
+  def validate_not_complete
+    raise 'You canot roll when the frame is complete' if complete?
+  end
 
   def validate_pin_amount(pins)
     raise 'Pins must be a value from 0 to 10 or an F if it is a faul' unless pins.to_s.match(/\A\d\z|10/)
