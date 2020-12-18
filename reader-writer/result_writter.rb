@@ -41,12 +41,13 @@ class ResultWritter
     end
   end
 
+  private
+  
   def print_regular_frames(result, frame, i)
     line = ''
-    case
-    when !frame.strike? && !frame.spare?
+    if !frame.strike? && !frame.spare?
       frame.result.each { line += "#{result.shots[i]}\t "; i += 1 }
-    when frame.spare?
+    elsif  frame.spare?
       line = "#{result.shots[i]}\t /\t"
       i += 2
     else
@@ -61,10 +62,9 @@ class ResultWritter
   end
 
   def print_last_frame(result, frame, i)
-    case
-    when frame.strike?
+    if frame.strike?
       print_last_frame_strike(frame)
-    when frame.spare?
+    elsif frame.spare?
       print_last_frame_spare(frame)
     else
       "#{result.shots[i]}\t #{result.shots[i + 1]}"

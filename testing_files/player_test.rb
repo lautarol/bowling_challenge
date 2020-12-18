@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative '../player.rb'
-require_relative '../frame.rb'
-require_relative '../last_frame.rb'
+require_relative '../frames/frame.rb'
+require_relative '../frames/last_frame.rb'
 require_relative '../score.rb'
 
 class PlayerTest < Minitest::Test

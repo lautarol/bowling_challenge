@@ -1,9 +1,9 @@
 require_relative 'player.rb'
-require_relative 'frame.rb'
-require_relative 'last_frame.rb'
+require_relative 'frames/frame.rb'
+require_relative 'frames/last_frame.rb'
 require_relative 'score.rb'
-require_relative 'file_reader.rb'
-require_relative 'result_writter.rb'
+require_relative 'reader-writer/file_reader.rb'
+require_relative 'reader-writer/result_writter.rb'
 
 class Bowling
   def initialize(file)

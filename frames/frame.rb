@@ -52,6 +52,7 @@ class Frame
   end
 
   private
+  
   def validate_not_complete
     raise 'You canot roll when the frame is complete' if complete?
   end

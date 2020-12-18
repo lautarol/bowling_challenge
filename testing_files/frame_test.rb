@@ -1,6 +1,6 @@
 require 'minitest/autorun'
-require_relative '../frame.rb'
-require_relative '../last_frame.rb'
+require_relative '../frames/frame.rb'
+require_relative '../frames/last_frame.rb'
 
 class FrameTest < Minitest::Test
   
@@ -133,5 +133,4 @@ class FrameTest < Minitest::Test
       frame.add(8)
     end
   end
-
 end
